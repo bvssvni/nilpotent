@@ -12,9 +12,11 @@ use std::num::Zero;
 
 pub use nilpot2::Nilpot2;
 pub use nilpot3::Nilpot3;
+pub use nilpot4::Nilpot4;
 
 mod nilpot2;
 mod nilpot3;
+mod nilpot4;
 
 /// Multiplies two nilpotent numbers.
 ///

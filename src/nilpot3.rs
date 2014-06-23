@@ -29,7 +29,7 @@ impl<T: Sub<T, T>> Sub<Nilpot3<T>, Nilpot3<T>> for Nilpot3<T> {
     fn sub(&self, rhs: &Nilpot3<T>) -> Nilpot3<T> {
         let Nilpot3(ref a) = *self;
         let Nilpot3(ref b) = *rhs;
-        Nilpot3([a[0] - b[0], a[1] - b[1], a[1] - b[1]])
+        Nilpot3([a[0] - b[0], a[1] - b[1], a[2] - b[2]])
     }
 }
 
