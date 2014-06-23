@@ -7,16 +7,21 @@
 //! They can be used to perform numerical analysis
 //! around a local coordinate.
 
+#[cfg(test)]
+extern crate debug;
+
 use std::num::One;
 use std::num::Zero;
 
 pub use nilpot2::Nilpot2;
 pub use nilpot3::Nilpot3;
 pub use nilpot4::Nilpot4;
+pub use nilpot5::Nilpot5;
 
 mod nilpot2;
 mod nilpot3;
 mod nilpot4;
+mod nilpot5;
 
 /// Multiplies two nilpotent numbers.
 ///

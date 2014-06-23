@@ -11,6 +11,52 @@ use {
 #[deriving(Copy)]
 pub struct Nilpot4<T>(pub [T, ..4]);
 
+impl<T: PartialOrd> PartialOrd for Nilpot4<T> {
+    fn lt(&self, rhs: &Nilpot4<T>) -> bool {
+        let Nilpot4(ref a) = *self;
+        let Nilpot4(ref b) = *rhs;
+        a.iter().zip(b.iter()).any(|(a, b)| a < b)
+    }
+}
+
+impl<T: Signed> Signed for Nilpot4<T> {
+    fn abs(&self) -> Nilpot4<T> {
+        let Nilpot4(ref a) = *self;
+        Nilpot4([a[0].abs(), a[1].abs(), a[2].abs(), a[3].abs()])
+    }
+    
+    fn abs_sub(&self, rhs: &Nilpot4<T>) -> Nilpot4<T> {
+        let Nilpot4(ref a) = *self;
+        let Nilpot4(ref b) = *rhs;
+        Nilpot4([
+            a[0].abs_sub(&b[0]), 
+            a[1].abs_sub(&b[1]), 
+            a[2].abs_sub(&b[2]), 
+            a[3].abs_sub(&b[3])
+        ])
+    }
+
+    fn signum(&self) -> Nilpot4<T> {
+        let Nilpot4(ref a) = *self;
+        Nilpot4([
+            a[0].signum(),
+            a[1].signum(),
+            a[2].signum(),
+            a[3].signum()
+        ])
+    }
+
+    fn is_positive(&self) -> bool {
+        let Nilpot4(ref a) = *self;
+        a[0].is_positive()
+    }
+    
+    fn is_negative(&self) -> bool {
+        let Nilpot4(ref a) = *self;
+        a[0].is_negative()
+    }
+}
+
 impl<T: Num> Num for Nilpot4<T> {
 
 }

@@ -10,6 +10,48 @@ use {
 #[deriving(Copy)]
 pub struct Nilpot2<T>(pub [T, ..2]);
 
+impl<T: PartialOrd> PartialOrd for Nilpot2<T> {
+    fn lt(&self, rhs: &Nilpot2<T>) -> bool {
+        let Nilpot2(ref a) = *self;
+        let Nilpot2(ref b) = *rhs;
+        a.iter().zip(b.iter()).any(|(a, b)| a < b)
+    }
+}
+
+impl<T: Signed> Signed for Nilpot2<T> {
+    fn abs(&self) -> Nilpot2<T> {
+        let Nilpot2(ref a) = *self;
+        Nilpot2([a[0].abs(), a[1].abs()])
+    }
+    
+    fn abs_sub(&self, rhs: &Nilpot2<T>) -> Nilpot2<T> {
+        let Nilpot2(ref a) = *self;
+        let Nilpot2(ref b) = *rhs;
+        Nilpot2([
+            a[0].abs_sub(&b[0]), 
+            a[1].abs_sub(&b[1])
+        ])
+    }
+
+    fn signum(&self) -> Nilpot2<T> {
+        let Nilpot2(ref a) = *self;
+        Nilpot2([
+            a[0].signum(),
+            a[1].signum()
+        ])
+    }
+
+    fn is_positive(&self) -> bool {
+        let Nilpot2(ref a) = *self;
+        a[0].is_positive()
+    }
+    
+    fn is_negative(&self) -> bool {
+        let Nilpot2(ref a) = *self;
+        a[0].is_negative()
+    }
+}
+
 impl<T: Num> Num for Nilpot2<T> {
 
 }

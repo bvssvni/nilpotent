@@ -11,6 +11,50 @@ use {
 #[deriving(Copy)]
 pub struct Nilpot3<T>(pub [T, ..3]);
 
+impl<T: PartialOrd> PartialOrd for Nilpot3<T> {
+    fn lt(&self, rhs: &Nilpot3<T>) -> bool {
+        let Nilpot3(ref a) = *self;
+        let Nilpot3(ref b) = *rhs;
+        a.iter().zip(b.iter()).any(|(a, b)| a < b)
+    }
+}
+
+impl<T: Signed> Signed for Nilpot3<T> {
+    fn abs(&self) -> Nilpot3<T> {
+        let Nilpot3(ref a) = *self;
+        Nilpot3([a[0].abs(), a[1].abs(), a[2].abs()])
+    }
+    
+    fn abs_sub(&self, rhs: &Nilpot3<T>) -> Nilpot3<T> {
+        let Nilpot3(ref a) = *self;
+        let Nilpot3(ref b) = *rhs;
+        Nilpot3([
+            a[0].abs_sub(&b[0]), 
+            a[1].abs_sub(&b[1]), 
+            a[2].abs_sub(&b[2])
+        ])
+    }
+
+    fn signum(&self) -> Nilpot3<T> {
+        let Nilpot3(ref a) = *self;
+        Nilpot3([
+            a[0].signum(),
+            a[1].signum(),
+            a[2].signum()
+        ])
+    }
+
+    fn is_positive(&self) -> bool {
+        let Nilpot3(ref a) = *self;
+        a[0].is_positive()
+    }
+    
+    fn is_negative(&self) -> bool {
+        let Nilpot3(ref a) = *self;
+        a[0].is_negative()
+    }
+}
+
 impl<T: Num> Num for Nilpot3<T> {
 
 }
